@@ -149,10 +149,6 @@
                                 <color key="textColor" red="0.53151041666666665" green="0.53151041666666665" blue="0.53151041666666665" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Hhu-cJ-YfS">
-                                <rect key="frame" x="20" y="252" width="16" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QW1-IY-9l9">
                                 <rect key="frame" x="44" y="249" width="73" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -160,29 +156,69 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="R0U-yn-5gQ">
-                                <rect key="frame" x="20" y="312" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="R0U-yn-5gQ">
+                                <rect key="frame" x="20" y="251" width="17" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="Hearts Filled-50"/>
+                                <connections>
+                                    <action selector="onFavoritesButton:" destination="67j-td-Ehm" eventType="touchUpInside" id="JQn-MD-J31"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Retweets" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eJs-lP-x5L">
+                                <rect key="frame" x="226" y="249" width="82" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="F6I-iJ-R0b">
+                                <rect key="frame" x="28" y="301" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <action selector="testButton:" destination="67j-td-Ehm" eventType="touchUpInside" id="rGt-f3-sTt"/>
+                                    <action selector="onReplyButton:" destination="67j-td-Ehm" eventType="touchUpInside" id="gEb-G5-HdG"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="SIt-nA-dga">
+                                <rect key="frame" x="94" y="302" width="156" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pqk-H2-sVN">
+                                <rect key="frame" x="191" y="246" width="22" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="retweet-action"/>
+                                <connections>
+                                    <action selector="onRetweetButton:" destination="67j-td-Ehm" eventType="touchUpInside" id="bi4-p8-ZVr"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="lfm-91-npS" appends="YES" id="gTo-rT-RLk"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Tweet" id="EDp-F3-8hS"/>
                     <connections>
                         <outlet property="dateLabel" destination="k71-iR-WhR" id="unk-yY-dlW"/>
-                        <outlet property="favoritesButton" destination="R0U-yn-5gQ" id="dvd-ax-0Rr"/>
-                        <outlet property="favoritesImage" destination="Hhu-cJ-YfS" id="q1S-5K-lIp"/>
+                        <outlet property="favoritesButton" destination="R0U-yn-5gQ" id="ANK-ra-S7T"/>
                         <outlet property="favoritesLabel" destination="QW1-IY-9l9" id="rU6-Ba-s2r"/>
                         <outlet property="nameLabel" destination="83W-vQ-7B0" id="GEg-Ut-21o"/>
                         <outlet property="profilePicLabel" destination="dVh-AA-wik" id="sSR-Yo-Wcg"/>
+                        <outlet property="replyTextField" destination="SIt-nA-dga" id="eP3-KJ-qVk"/>
+                        <outlet property="retweetButton" destination="pqk-H2-sVN" id="o5e-PI-vJl"/>
+                        <outlet property="retweetLabel" destination="eJs-lP-x5L" id="8RK-7q-RoE"/>
                         <outlet property="tweetLabel" destination="FQp-lF-bAO" id="vRU-O1-WgF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YRy-40-QBF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="lfm-91-npS">
+                    <connections>
+                        <action selector="onTap:" destination="67j-td-Ehm" id="Txu-cW-BDJ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2018" y="-303"/>
         </scene>
@@ -205,4 +241,8 @@
             <point key="canvasLocation" x="1613" y="330"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Hearts Filled-50" width="50" height="50"/>
+        <image name="retweet-action" width="75" height="72"/>
+    </resources>
 </document>

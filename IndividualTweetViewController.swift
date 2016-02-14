@@ -13,9 +13,15 @@ class IndividualTweetViewController: UIViewController {
     var tweet: Tweet?
     
 
+    var didRetweet = false
+    var didFavorite = false
+
+    
+    @IBOutlet weak var replyTextField: UITextField!
+    @IBOutlet weak var retweetLabel: UILabel!
+    @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoritesButton: UIButton!
     @IBOutlet weak var favoritesLabel: UILabel!
-    @IBOutlet weak var favoritesImage: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tweetLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -23,6 +29,7 @@ class IndividualTweetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+       
         
         dateLabel.text = tweet?.createdAtString
         nameLabel.text = tweet?.user?.name
@@ -30,12 +37,15 @@ class IndividualTweetViewController: UIViewController {
         let baseUrl = tweet?.user?.profileImageUrl
         let imageUrl = NSURL(string: (baseUrl)!)
         profilePicLabel.setImageWithURL((imageUrl)!)
-        print(tweet?.favorites)
-        let favoritesNum: Int! = tweet!.favorites
+        //print(tweet?.favorites)
+        var favoritesNum: Int! = tweet!.favorites
         var favoritesString = String(favoritesNum)
         favoritesLabel.text = favoritesString + " Favorites"
         //favoritesImage.image = UIImage(named: "Hearts Filled-50")
-        
+        print(tweet?.id)
+        var retweetNum: Int! = tweet!.retweets
+        var retweetString = String(retweetNum)
+        retweetLabel.text = retweetString + " Retweets"
         
             
        
@@ -43,9 +53,77 @@ class IndividualTweetViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func testButton(sender: AnyObject) {
-        print("ASDFASDF")
+    @IBAction func onReplyButton(sender: AnyObject) {
+        print(replyTextField.text)
+        
+        TwitterClient.sharedInstance.test()
     }
+    
+    @IBAction func onTap(sender: AnyObject) {
+     view.endEditing(true)
+    }
+
+    @IBAction func onFavoritesButton(sender: AnyObject) {
+        didFavorite = !didFavorite
+        
+        //favoritesButton.tintColor = UIColor.redColor()
+        
+        let idNum: Int! = tweet!.id
+        var idString = String(idNum)
+        
+        if(didFavorite)
+        {
+            
+           favoritesLabel.textColor = UIColor.redColor()
+            var favoritesNum: Int! = tweet!.favorites! + 1
+            var favoritesString = String(favoritesNum)
+            favoritesLabel.text = favoritesString + " Favorites"
+            TwitterClient.sharedInstance.favorite(idString)
+        }
+        else
+        {
+            favoritesLabel.textColor = UIColor.blackColor()
+            var favoritesNum: Int! = tweet!.favorites!
+            var favoritesString = String(favoritesNum)
+            favoritesLabel.text = favoritesString + " Favorites"
+            TwitterClient.sharedInstance.unfavorite(idString)
+        }
+        
+    }
+    
+    @IBAction func onRetweetButton(sender: AnyObject) {
+        didRetweet = !didRetweet
+        
+        //favoritesButton.tintColor = UIColor.redColor()
+        
+        let idNum: Int! = tweet!.id
+        var idString = String(idNum)
+        
+        if(didRetweet)
+        {
+            
+            retweetLabel.textColor = UIColor.greenColor()
+            var retweetNum: Int! = tweet!.retweets! + 1
+            var retweetString = String(retweetNum)
+            retweetLabel.text = retweetString + " Retweets"
+            TwitterClient.sharedInstance.retweet(idString)
+            
+        }
+        else
+        {
+            favoritesLabel.textColor = UIColor.blackColor()
+            var retweetNum: Int! = tweet!.retweets
+            var retweetString = String(retweetNum)
+            retweetLabel.text = retweetString + " Retweets"
+            TwitterClient.sharedInstance.unretweet(idString)
+            
+        }
+        
+    }
+    
+        
+    
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
