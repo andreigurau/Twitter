@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //force into login screen
             print("current user detected: \(User.currentUser?.name)")
             
-            var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as UIViewController
+            var vc = storyboard.instantiateViewControllerWithIdentifier("NavHome") as UIViewController
             window?.rootViewController = vc
             
         }
