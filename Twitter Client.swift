@@ -122,12 +122,31 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func test()
+    func test(message: String)
     {
-        POST("https://api.twitter.com/1.1/statuses/update.json?status=Maybe%20he%27ll%20finally%20find%20his%20keys.%20%23peterfalk", parameters: nil, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+        var newString = message.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        newString = newString.stringByReplacingOccurrencesOfString("'", withString: "%27", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        newString = newString.stringByReplacingOccurrencesOfString("#", withString: "%23", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        newString = newString.stringByReplacingOccurrencesOfString("@", withString: "%40", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        print("https://api.twitter.com/1.1/statuses/update.json?status=\(newString)")
+        POST("https://api.twitter.com/1.1/statuses/update.json?status=\(newString)", parameters: nil, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
             print("post")
             }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
                 print("didn't post")
+        }
+    }
+    func reply(message: String, username: String)
+    {
+        var newString = message.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        newString = newString.stringByReplacingOccurrencesOfString("'", withString: "%27", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        newString = newString.stringByReplacingOccurrencesOfString("#", withString: "%23", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        newString = newString.stringByReplacingOccurrencesOfString("@", withString: "%40", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        var finalString = "%40\(username)%20\(newString)"
+        print("https://api.twitter.com/1.1/statuses/update.json?status=\(finalString)")
+        POST("https://api.twitter.com/1.1/statuses/update.json?status=\(finalString)", parameters: nil, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            print("replied")
+            }) { (operation: NSURLSessionDataTask?, error: NSError) -> Void in
+                print("didn't replied")
         }
     }
     

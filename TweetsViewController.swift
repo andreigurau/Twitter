@@ -36,14 +36,16 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
 
-    @IBAction func onVisibleLogout(sender: AnyObject) {
-        User.currentUser?.logout()
-    }
+    
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return 20
+        if tweets != nil {
+            return tweets!.count
+        } else {
+            return 0
+        }
     }
     
 
@@ -100,6 +102,23 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             print("prepare for segue")
             // Get the new view controller using segue.destinationViewController.
             // Pass the selected object to the new view controller.
+        }
+        
+        if segue.identifier == "ProfileSegue"{
+            
+            //let cell = sender as! UITableViewCell
+            //let indexPath = tableView.indexPathForCell(cell)
+            //let tweet = tweets?[indexPath!.row]
+            let user2 = User.currentUser
+            let profileDetailViewController = segue.destinationViewController as! ProfileDetailViewController
+            profileDetailViewController.user2 = user2
+            
+            //cell.selectionStyle = .None
+            //let backgroundView = UIView()
+            //backgroundView.backgroundColor = UIColor.redColor()
+            //cell.selectedBackgroundView = backgroundView
+            
+            print("prepare for segue")
         }
     }
     

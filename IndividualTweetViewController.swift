@@ -17,6 +17,7 @@ class IndividualTweetViewController: UIViewController {
     var didFavorite = false
 
     
+    @IBOutlet weak var testImageButton: UIButton!
     @IBOutlet weak var replyTextField: UITextField!
     @IBOutlet weak var retweetLabel: UILabel!
     @IBOutlet weak var retweetButton: UIButton!
@@ -47,6 +48,11 @@ class IndividualTweetViewController: UIViewController {
         var retweetString = String(retweetNum)
         retweetLabel.text = retweetString + " Retweets"
         
+        let testimage = profilePicLabel.image
+        //testImageButton.setImage(testimage!, forState: UIControlState.Normal)
+        testImageButton.setBackgroundImage(testimage!, forState: UIControlState.Normal)
+        
+        
             
        
         
@@ -55,8 +61,15 @@ class IndividualTweetViewController: UIViewController {
     
     @IBAction func onReplyButton(sender: AnyObject) {
         print(replyTextField.text)
+        var username = tweet?.user?.screenName
         
-        TwitterClient.sharedInstance.test()
+        if replyTextField.text != ""
+        {
+        TwitterClient.sharedInstance.reply(replyTextField.text!, username: username!)
+        
+        }
+        
+        
     }
     
     @IBAction func onTap(sender: AnyObject) {
@@ -136,15 +149,28 @@ class IndividualTweetViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //let cell = sender as! UITableViewCell
+        //let indexPath = tableView.indexPathForCell(cell)
+        //let tweet = tweets?[indexPath!.row]
+        let user2 = tweet?.user
+        let profileDetailViewController = segue.destinationViewController as! ProfileDetailViewController
+        profileDetailViewController.user2 = user2
+        
+        //cell.selectionStyle = .None
+        //let backgroundView = UIView()
+        //backgroundView.backgroundColor = UIColor.redColor()
+        //cell.selectedBackgroundView = backgroundView
+        
+        print("prepare for segue")
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
     
 
 }
